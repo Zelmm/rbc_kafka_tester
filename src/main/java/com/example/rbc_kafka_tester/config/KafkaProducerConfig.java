@@ -1,5 +1,6 @@
 package com.example.rbc_kafka_tester.config;
 
+import com.example.rbc_kafka_tester.dto.TransactionDTO;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.LongSerializer;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,6 +13,7 @@ import org.springframework.kafka.support.converter.StringJsonMessageConverter;
 import org.springframework.kafka.support.serializer.JsonSerializer;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -34,13 +36,13 @@ public class KafkaProducerConfig {
     }
 
     @Bean
-    public ProducerFactory<Long, String> producerStarshipFactory() {
+    public ProducerFactory<Long, List<TransactionDTO>> producerStarshipFactory() {
         return new DefaultKafkaProducerFactory<>(producerConfigs());
     }
 
     @Bean
-    public KafkaTemplate<Long, String> kafkaTemplate() {
-        KafkaTemplate<Long, String> template = new KafkaTemplate<>(producerStarshipFactory());
+    public KafkaTemplate<Long, List<TransactionDTO>> kafkaTemplate() {
+        KafkaTemplate<Long, List<TransactionDTO>> template = new KafkaTemplate<>(producerStarshipFactory());
         template.setMessageConverter(new StringJsonMessageConverter());
         return template;
     }

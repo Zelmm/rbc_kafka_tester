@@ -16,8 +16,8 @@ public class KafkaSendController {
     }
 
     @GetMapping("/send")
-    public String home(){
+    public String send() {
         transactionService.produce();
-        return "sended";
+        return "sendedPage";
     }
 }
